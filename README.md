@@ -10,20 +10,9 @@ Awesome tooltips.
 ## Installation
 
 ```shell
-$ npm install react-portal-tooltip
+$ npm install react-portal-tooltip-react-v18
 ```
 
-**Warning** The versions 2.x on npm are compatible with React 16. Corresponding versions for older versions of React:
-
-```shell
-# For react v15
-$ npm install react-portal-tooltip@1
-
-# For react 0.14
-$ npm install react-portal-tooltip@0.14
-
-# For react 0.13
-$ npm install react-portal-tooltip@0.13
 ```
 
 ## Documentation and demo
@@ -133,8 +122,6 @@ return (
 ## Development
 
 ```shell
-# clone
-$ git clone git@github.com:romainberger/react-portal-tooltip.git
 
 # install the dependencies
 $ npm install
