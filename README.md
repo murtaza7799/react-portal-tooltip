@@ -2,28 +2,24 @@
 
 Awesome tooltips.
 
-[![Build Status](https://img.shields.io/travis/romainberger/react-portal-tooltip/master.svg?style=flat-square)](https://travis-ci.org/romainberger/react-portal-tooltip) [![npm version](https://img.shields.io/npm/v/react-portal-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip)
-[![npm downloads](https://img.shields.io/npm/dm/react-portal-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip)
+[![Build Status](https://img.shields.io/travis/romainberger/react-portal-tooltip/master.svg?style=flat-square)](https://travis-ci.org/romainberger/react-portal-tooltip-upgraded) [![npm version](https://img.shields.io/npm/v/react-portal-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
+[![npm downloads](https://img.shields.io/npm/dm/react-portal-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
 
-![react tooltip](https://raw.githubusercontent.com/romainberger/react-portal-tooltip/master/react-portal-tooltip.gif)
+![react tooltip](https://raw.githubusercontent.com/romainberger/react-portal-tooltip/master/react-portal-tooltip-upgraded.gif)
 
 ## Installation
 
 ```shell
-$ npm install react-portal-tooltip-react-v18
+$ npm install react-portal-tooltip-upgraded
 ```
 
 ```
-
-## Documentation and demo
-
-[http://romainberger.github.io/react-portal-tooltip/](http://romainberger.github.io/react-portal-tooltip/)
 
 ## Usage
 
 ```javascript
 import React from 'react'
-import ToolTip from 'react-portal-tooltip'
+import ToolTip from 'react-portal-tooltip-upgraded'
 
 class MyComponent extends React.Component {
     state = {
@@ -60,7 +56,7 @@ class MyComponent extends React.Component {
 * `tooltipTimeout`: timeout for the tooltip fade out in milliseconds. Default to 500
 * `parent`: the tooltip will be placed next to this element. Can be the id of the parent or the ref (see example below)
 * `group`: string, necessary if you want several independent tooltips
-* `style`: object, allows customizing the tooltip. Checkout the [example](https://github.com/romainberger/react-portal-tooltip/blob/master/example/src/style.js) for details.
+* `style`: object, allows customizing the tooltip. Checkout the [example](https://github.com/murtaza7799/react-portal-tooltip/blob/master/example/src/style.js) for details.
 * `useHover` bool, default to true. If true, the tooltip will stay visible when hovered.
 
 ### Parent prop
@@ -100,7 +96,7 @@ If you only use the Tooltip for mouse enter / mouse leave, you may not want to h
 Import the stateful version:
 
 ```js
-import { StatefulToolTip } from "react-portal-tooltip"
+import { StatefulToolTip } from "react-portal-tooltip-upgraded"
 ```
 
 Then create your parent and give it as a prop to the Tooltip:
@@ -115,9 +111,9 @@ return (
 )
 ```
 
-`StatefulToolTip` takes the same props as `ToolTip`, plus a `className` prop that will be applied to the root element wrapping the parent ([see the example](https://github.com/romainberger/react-portal-tooltip/blob/master/example/src/stateful.js)).
+`StatefulToolTip` takes the same props as `ToolTip`, plus a `className` prop that will be applied to the root element wrapping the parent ([see the example](https://github.com/murtaza7799/react-portal-tooltip/blob/master/example/src/stateful.js)).
 
-[See the example live](http://romainberger.github.io/react-portal-tooltip/#/stateful).
+[See the example live](http://murtaza7799.github.io/react-portal-tooltip/#/stateful).
 
 ## Development
 
