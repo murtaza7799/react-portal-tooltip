@@ -2,8 +2,8 @@
 
 Awesome tooltips.
 
-[![Build Status](https://img.shields.io/travis/romainberger/react-portal-tooltip/master.svg?style=flat-square)](https://travis-ci.org/romainberger/react-portal-tooltip-upgraded) [![npm version](https://img.shields.io/npm/v/react-portal-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
-[![npm downloads](https://img.shields.io/npm/dm/react-portal-tooltip.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
+[![Build Status](https://img.shields.io/travis/romainberger/react-portal-tooltip-upgraded/master.svg?style=flat-square)](https://travis-ci.org/romainberger/react-portal-tooltip-upgraded) [![npm version](https://img.shields.io/npm/v/react-portal-tooltip-upgraded.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
+[![npm downloads](https://img.shields.io/npm/dm/react-portal-tooltip-upgraded.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
 
 ![react tooltip](https://raw.githubusercontent.com/romainberger/react-portal-tooltip/master/react-portal-tooltip-upgraded.gif)
 
