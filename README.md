@@ -1,9 +1,9 @@
-# react-portal-tooltip-react-v18
+# react-portal-tooltip-upgraded
 
 A modern React tooltip library that renders tooltips via a portal — keeping them outside your component tree so they always appear on top. This is a **React 18 compatible fork** of the original [react-portal-tooltip](https://github.com/romainberger/react-portal-tooltip) by [Romain Berger](https://github.com/romainberger).
 
-[![npm version](https://img.shields.io/npm/v/react-portal-tooltip-react-v18.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-react-v18)
-[![npm downloads](https://img.shields.io/npm/dm/react-portal-tooltip-react-v18.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-react-v18)
+[![npm version](https://img.shields.io/npm/v/react-portal-tooltip-upgraded.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
+[![npm downloads](https://img.shields.io/npm/dm/react-portal-tooltip-upgraded.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE.md)
 
 ![react tooltip demo](https://raw.githubusercontent.com/romainberger/react-portal-tooltip/master/react-portal-tooltip.gif)
@@ -12,24 +12,25 @@ A modern React tooltip library that renders tooltips via a portal — keeping th
 
 ## What's Different in This Fork
 
-The original library was built for React 15/16. This fork updates it to work with **React 18**:
+The original library was built for React 15/16. This fork fully modernises it for **React 18**:
 
+- `ReactDOM.render` replaced with `createRoot` from `react-dom/client`
+- `componentWillReceiveProps` replaced with `componentDidUpdate` — fully Strict Mode compatible
+- `ReactDOM.unmountComponentAtNode` replaced with `root.unmount()`
 - Peer dependencies updated to `react@^18.2.0` and `react-dom@^18.2.0`
 - Dev dependencies bumped to current Babel 7 and Mocha 10
 - Maintained full backwards compatibility with the original API
-
-> **Known limitation:** The core still uses `ReactDOM.render` (deprecated in React 18) and `componentWillReceiveProps` (removed in Strict Mode). A full hooks rewrite is planned. Use outside of React 18 Strict Mode for best results.
 
 ---
 
 ## Installation
 
 ```bash
-npm install react-portal-tooltip-react-v18
+npm install react-portal-tooltip-upgraded
 ```
 
 ```bash
-yarn add react-portal-tooltip-react-v18
+yarn add react-portal-tooltip-upgraded
 ```
 
 `prop-types` is a required peer dependency — install it if you don't already have it:
@@ -46,7 +47,7 @@ npm install prop-types
 
 ```jsx
 import React from 'react'
-import ToolTip from 'react-portal-tooltip-react-v18'
+import ToolTip from 'react-portal-tooltip-upgraded'
 
 class MyComponent extends React.Component {
   state = {
@@ -77,7 +78,7 @@ class MyComponent extends React.Component {
 
 ```jsx
 import React, { useState } from 'react'
-import ToolTip from 'react-portal-tooltip-react-v18'
+import ToolTip from 'react-portal-tooltip-upgraded'
 
 function MyComponent() {
   const [isActive, setIsActive] = useState(false)
@@ -106,7 +107,7 @@ function MyComponent() {
 If you only need hover behaviour, use `StatefulToolTip` to avoid managing state yourself:
 
 ```jsx
-import { StatefulToolTip } from 'react-portal-tooltip-react-v18'
+import { StatefulToolTip } from 'react-portal-tooltip-upgraded'
 
 const button = <span>Hover me to display the tooltip</span>
 
@@ -254,9 +255,9 @@ npm start
 
 ## Known Issues & Planned Improvements
 
-- [ ] Migrate from deprecated `ReactDOM.render` to `createRoot` for full React 18 support
-- [ ] Replace `componentWillReceiveProps` with `getDerivedStateFromProps` / `componentDidUpdate` for Strict Mode compatibility
-- [ ] Update the `example/` app to React 18
+- [x] Migrate from deprecated `ReactDOM.render` to `createRoot` for full React 18 support
+- [x] Replace `componentWillReceiveProps` with `componentDidUpdate` for Strict Mode compatibility
+- [x] Update the `example/` app to React 18
 - [ ] Add TypeScript type definitions
 - [ ] Replace Travis CI with GitHub Actions
 - [ ] Expand test coverage (Card positioning, arrow styles, StatefulToolTip, cleanup)
