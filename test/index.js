@@ -1,7 +1,7 @@
-import React from 'react'
-import assert from 'assert'
-import ReactShallowRenderer from 'react-test-renderer/shallow'
-import Tooltip from '../src'
+const React = require('react')
+const assert = require('assert')
+const ReactShallowRenderer = require('react-test-renderer/shallow')
+const Tooltip = require('../src').default
 
 const renderer = (Component) => {
   const shallowRenderer = new ReactShallowRenderer()
@@ -15,8 +15,9 @@ describe('React Portal Tooltip', () => {
   })
 
   it('should render null', () => {
-    let tooltip = renderer(<Tooltip parent="#hey" position="top" arrow="center" active={false}><span>Hey this is a tooltip</span></Tooltip>)
-
+    let tooltip = renderer(React.createElement(Tooltip, { parent: '#hey', position: 'top', arrow: 'center', active: false },
+      React.createElement('span', null, 'Hey this is a tooltip')
+    ))
     assert.equal(tooltip, null)
   })
 })

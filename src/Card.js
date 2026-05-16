@@ -321,8 +321,15 @@ export default class Card extends Component {
     this.updateSize()
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props !== prevProps){
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.active !== this.props.active ||
+      prevProps.position !== this.props.position ||
+      prevProps.arrow !== this.props.arrow ||
+      prevProps.align !== this.props.align ||
+      prevProps.children !== this.props.children ||
+      prevProps.parentEl !== this.props.parentEl
+    ) {
       this.updateSize()
     }
   }

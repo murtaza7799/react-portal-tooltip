@@ -1,137 +1,286 @@
-# React Portal Tooltip React V18
+# react-portal-tooltip-react-v18
 
-Awesome tooltips.
+A modern React tooltip library that renders tooltips via a portal — keeping them outside your component tree so they always appear on top. This is a **React 18 compatible fork** of the original [react-portal-tooltip](https://github.com/romainberger/react-portal-tooltip) by [Romain Berger](https://github.com/romainberger).
 
-[![Build Status](https://img.shields.io/travis/romainberger/react-portal-tooltip-upgraded/master.svg?style=flat-square)](https://travis-ci.org/romainberger/react-portal-tooltip-upgraded) [![npm version](https://img.shields.io/npm/v/react-portal-tooltip-upgraded.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
-[![npm downloads](https://img.shields.io/npm/dm/react-portal-tooltip-upgraded.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-upgraded)
+[![npm version](https://img.shields.io/npm/v/react-portal-tooltip-react-v18.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-react-v18)
+[![npm downloads](https://img.shields.io/npm/dm/react-portal-tooltip-react-v18.svg?style=flat-square)](https://www.npmjs.com/package/react-portal-tooltip-react-v18)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE.md)
 
-![react tooltip](https://raw.githubusercontent.com/romainberger/react-portal-tooltip/master/react-portal-tooltip-upgraded.gif)
+![react tooltip demo](https://raw.githubusercontent.com/romainberger/react-portal-tooltip/master/react-portal-tooltip.gif)
+
+---
+
+## What's Different in This Fork
+
+The original library was built for React 15/16. This fork updates it to work with **React 18**:
+
+- Peer dependencies updated to `react@^18.2.0` and `react-dom@^18.2.0`
+- Dev dependencies bumped to current Babel 7 and Mocha 10
+- Maintained full backwards compatibility with the original API
+
+> **Known limitation:** The core still uses `ReactDOM.render` (deprecated in React 18) and `componentWillReceiveProps` (removed in Strict Mode). A full hooks rewrite is planned. Use outside of React 18 Strict Mode for best results.
+
+---
 
 ## Installation
 
-```shell
-$ npm install react-portal-tooltip-upgraded
+```bash
+npm install react-portal-tooltip-react-v18
 ```
 
+```bash
+yarn add react-portal-tooltip-react-v18
 ```
+
+`prop-types` is a required peer dependency — install it if you don't already have it:
+
+```bash
+npm install prop-types
+```
+
+---
 
 ## Usage
 
-```javascript
+### Basic Usage (Class Component)
+
+```jsx
 import React from 'react'
-import ToolTip from 'react-portal-tooltip-upgraded'
+import ToolTip from 'react-portal-tooltip-react-v18'
 
 class MyComponent extends React.Component {
-    state = {
-        isTooltipActive: false
-    }
-    showTooltip() {
-        this.setState({isTooltipActive: true})
-    }
-    hideTooltip() {
-        this.setState({isTooltipActive: false})
-    }
-    render() {
-        return (
-            <div>
-                <p id="text" onMouseEnter={this.showTooltip.bind(this)} onMouseLeave={this.hideTooltip.bind(this)}>This is a cool component</p>
-                <ToolTip active={this.state.isTooltipActive} position="top" arrow="center" parent="#text">
-                    <div>
-                        <p>This is the content of the tooltip</p>
-                        <img src="image.png"/>
-                    </div>
-                </ToolTip>
-            </div>
-        )
-    }
+  state = {
+    isTooltipActive: false
+  }
+
+  showTooltip = () => this.setState({ isTooltipActive: true })
+  hideTooltip = () => this.setState({ isTooltipActive: false })
+
+  render() {
+    return (
+      <div>
+        <p id="text" onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>
+          Hover over me
+        </p>
+        <ToolTip active={this.state.isTooltipActive} position="top" arrow="center" parent="#text">
+          <div>
+            <p>This is the tooltip content</p>
+          </div>
+        </ToolTip>
+      </div>
+    )
+  }
 }
 ```
 
-### Props
+### Function Component with Hooks
 
-* `active`: boolean, the tooltip will be visible if true
-* `position`: top, right, bottom or left. Default to right
-* `arrow`: center, right, left, top or bottom (depending on the position prop). No arrow when the prop is not sepecified
-* `align`: the alignment of the whole tooltip relative to the `parent` element. possible values : center, right, left. Default to center.
-* `tooltipTimeout`: timeout for the tooltip fade out in milliseconds. Default to 500
-* `parent`: the tooltip will be placed next to this element. Can be the id of the parent or the ref (see example below)
-* `group`: string, necessary if you want several independent tooltips
-* `style`: object, allows customizing the tooltip. Checkout the [example](https://github.com/murtaza7799/react-portal-tooltip/blob/master/example/src/style.js) for details.
-* `useHover` bool, default to true. If true, the tooltip will stay visible when hovered.
+```jsx
+import React, { useState } from 'react'
+import ToolTip from 'react-portal-tooltip-react-v18'
 
-### Parent prop
+function MyComponent() {
+  const [isActive, setIsActive] = useState(false)
 
-You can use an id or a ref to reference the parent:
-
-#### id
-
-```javascript
-<div id="hoverMe" onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>
-    Hover me!!!
-</div>
-<ToolTip active={this.state.isTooltipActive} position="top" arrow="center" parent="#hoverMe">
+  return (
     <div>
-        <p>This is the content of the tooltip</p>
+      <button
+        id="my-button"
+        onMouseEnter={() => setIsActive(true)}
+        onMouseLeave={() => setIsActive(false)}
+      >
+        Hover me
+      </button>
+      <ToolTip active={isActive} position="bottom" arrow="center" parent="#my-button">
+        <p>Tooltip content here</p>
+      </ToolTip>
     </div>
-</ToolTip>
+  )
+}
 ```
 
-#### ref
+---
 
-```javascript
-<div ref={(element) => { this.element = element }} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>
-    Hover me!!!
-</div>
-<ToolTip active={this.state.isTooltipActive} position="top" arrow="center" parent={this.element}>
-    <div>
-        <p>This is the content of the tooltip</p>
-    </div>
-</ToolTip>
-```
+## Stateful Tooltip
 
-### Stateful ToolTip
+If you only need hover behaviour, use `StatefulToolTip` to avoid managing state yourself:
 
-If you only use the Tooltip for mouse enter / mouse leave, you may not want to handle the state yourself for all elements. In this case, you can use the stateful version which will do it for you:
+```jsx
+import { StatefulToolTip } from 'react-portal-tooltip-react-v18'
 
-Import the stateful version:
-
-```js
-import { StatefulToolTip } from "react-portal-tooltip-upgraded"
-```
-
-Then create your parent and give it as a prop to the Tooltip:
-
-```js
 const button = <span>Hover me to display the tooltip</span>
 
-return (
-  <StatefulToolTip parent={ button }>
-    Stateful Tooltip content here!
-  </StatefulToolTip>
-)
+function MyComponent() {
+  return (
+    <StatefulToolTip parent={button} position="top" arrow="center">
+      <p>Tooltip content here</p>
+    </StatefulToolTip>
+  )
+}
 ```
 
-`StatefulToolTip` takes the same props as `ToolTip`, plus a `className` prop that will be applied to the root element wrapping the parent ([see the example](https://github.com/murtaza7799/react-portal-tooltip/blob/master/example/src/stateful.js)).
+`StatefulToolTip` accepts all the same props as `ToolTip`, plus a `className` prop applied to the wrapper `<span>` around the parent element.
 
-[See the example live](http://murtaza7799.github.io/react-portal-tooltip/#/stateful).
+---
+
+## Referencing the Parent Element
+
+The `parent` prop accepts either a CSS selector string or a DOM ref.
+
+### Using a CSS ID selector
+
+```jsx
+<div id="hoverMe" onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
+  Hover me
+</div>
+<ToolTip active={isActive} position="top" arrow="center" parent="#hoverMe">
+  <p>Tooltip content</p>
+</ToolTip>
+```
+
+### Using a ref
+
+```jsx
+<div
+  ref={el => { this.triggerEl = el }}
+  onMouseEnter={showTooltip}
+  onMouseLeave={hideTooltip}
+>
+  Hover me
+</div>
+<ToolTip active={isActive} position="top" arrow="center" parent={this.triggerEl}>
+  <p>Tooltip content</p>
+</ToolTip>
+```
+
+---
+
+## Props
+
+### ToolTip
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `parent` | `string \| Element` | **required** | CSS selector string or DOM element to position the tooltip against |
+| `active` | `bool` | `false` | Controls visibility of the tooltip |
+| `position` | `string` | `'right'` | Tooltip placement: `top`, `right`, `bottom`, or `left` |
+| `arrow` | `string` | `null` | Arrow position: `center`, `top`, `right`, `bottom`, `left`. Omit for no arrow |
+| `align` | `string` | `null` | Horizontal alignment of the tooltip relative to the parent: `center`, `left`, `right` |
+| `group` | `string` | `'main'` | Unique group name — use different values when you need multiple independent tooltips on the same page |
+| `tooltipTimeout` | `number` | `500` | Fade-out delay in milliseconds |
+| `useHover` | `bool` | `true` | When `true`, the tooltip stays visible when the user hovers over it |
+| `style` | `object` | `{}` | Style overrides — see [Custom Styling](#custom-styling) below |
+
+### StatefulToolTip
+
+Accepts all `ToolTip` props, plus:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `parent` | `ReactElement` | **required** | The element that triggers the tooltip on hover |
+| `className` | `string` | `''` | Class name applied to the wrapper `<span>` |
+
+---
+
+## Custom Styling
+
+Pass a `style` object with two keys to customise the tooltip appearance:
+
+```jsx
+const tooltipStyle = {
+  style: {
+    background: '#1a1a2e',
+    color: '#eee',
+    padding: '8px 12px',
+    borderRadius: '6px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+  },
+  arrowStyle: {
+    color: '#1a1a2e',
+    borderColor: 'transparent',
+  }
+}
+
+<ToolTip active={isActive} position="top" arrow="center" parent="#btn" style={tooltipStyle}>
+  <p>Styled tooltip</p>
+</ToolTip>
+```
+
+> **Note:** `position`, `top`, `left`, `right`, `bottom`, `marginLeft`, and `marginRight` are reserved and will be ignored in the `style` object — the library controls positioning.
+
+---
+
+## Multiple Independent Tooltips
+
+Use the `group` prop to give each tooltip its own portal node:
+
+```jsx
+<ToolTip active={activeA} position="top" arrow="center" parent="#btn-a" group="tooltip-a">
+  Tooltip A
+</ToolTip>
+
+<ToolTip active={activeB} position="bottom" arrow="center" parent="#btn-b" group="tooltip-b">
+  Tooltip B
+</ToolTip>
+```
+
+---
 
 ## Development
 
-```shell
+```bash
+# Install root dependencies
+npm install
 
-# install the dependencies
-$ npm install
+# Build the library
+npm run build
 
-# go to the example folder, then install more dependencies
-$ cd example && npm install
+# Watch for changes
+npm start
 
-# start the development server with hot reloading
-$ npm start
-
-# to build run this command from the root directory
-$ npm build
+# Run tests
+npm test
 ```
+
+**Running the example app:**
+
+```bash
+cd example
+npm install
+npm start
+```
+
+---
+
+## Known Issues & Planned Improvements
+
+- [ ] Migrate from deprecated `ReactDOM.render` to `createRoot` for full React 18 support
+- [ ] Replace `componentWillReceiveProps` with `getDerivedStateFromProps` / `componentDidUpdate` for Strict Mode compatibility
+- [ ] Update the `example/` app to React 18
+- [ ] Add TypeScript type definitions
+- [ ] Replace Travis CI with GitHub Actions
+- [ ] Expand test coverage (Card positioning, arrow styles, StatefulToolTip, cleanup)
+
+---
+
+## Credits
+
+This package is a fork of **[react-portal-tooltip](https://github.com/romainberger/react-portal-tooltip)** originally created and maintained by [Romain Berger](https://github.com/romainberger). The core tooltip logic, positioning system, and API design are his work. This fork exists solely to provide React 18 compatibility while the original project was no longer maintained.
+
+All credit for the original architecture goes to Romain Berger.
+
+---
+
+## Author & Maintainer
+
+**Muhammad Murtaza**
+- GitHub: [@murtaza7799](https://github.com/murtaza7799)
+- Email: murtazasarwar@live.com
+
+---
 
 ## License
 
-MIT
+MIT — see [LICENSE.md](LICENSE.md) for details.
+
+Original work © Romain Berger. Modifications © 2023 Muhammad Murtaza.
