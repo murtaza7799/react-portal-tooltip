@@ -24,6 +24,7 @@ export default class ToolTip extends React.Component {
   }
 
   createPortal() {
+    if (typeof document === 'undefined') return
     const node = document.createElement('div')
     node.className = 'ToolTipPortal'
     document.body.appendChild(node)
@@ -35,6 +36,7 @@ export default class ToolTip extends React.Component {
   }
 
   renderPortal(props) {
+    if (typeof document === 'undefined') return
     if (!portalNodes[this.props.group]) {
       this.createPortal()
     }
@@ -75,6 +77,7 @@ export default class ToolTip extends React.Component {
   }
 
   componentWillUnmount() {
+    if (typeof document === 'undefined') return
     if (portalNodes[this.props.group]) {
       clearTimeout(portalNodes[this.props.group].timeout)
       portalNodes[this.props.group].root.unmount()
