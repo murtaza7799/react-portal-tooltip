@@ -4,3 +4,5 @@ react-portal-tooltip.gif
 .travis.yml
 index.html
 test
+tsconfig.json
+src/*.d.ts
