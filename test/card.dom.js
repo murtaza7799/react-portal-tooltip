@@ -10,10 +10,14 @@ describe('Card (DOM)', () => {
   const { JSDOM } = require('jsdom')
   const dom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'http://localhost/' })
 
+  const originalNavigator = Object.getOwnPropertyDescriptor(global, 'navigator')
+
   before(() => {
     global.window = dom.window
     global.document = dom.window.document
-    global.navigator = dom.window.navigator
+    // Node 20+ defines a built-in read-only `navigator` global — must
+    // redefine the property descriptor rather than assign directly.
+    Object.defineProperty(global, 'navigator', { value: dom.window.navigator, configurable: true })
     global.IS_REACT_ACT_ENVIRONMENT = true
   })
 
@@ -22,7 +26,11 @@ describe('Card (DOM)', () => {
   after(() => {
     delete global.window
     delete global.document
-    delete global.navigator
+    if (originalNavigator) {
+      Object.defineProperty(global, 'navigator', originalNavigator)
+    } else {
+      delete global.navigator
+    }
     delete global.IS_REACT_ACT_ENVIRONMENT
   })
 
