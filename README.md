@@ -308,7 +308,7 @@ npm run dev
 - [x] Fix `useHover` race condition in React 18 concurrent rendering
 - [x] Add Next.js live demo (positions, arrows, custom styles, `StatefulToolTip`, card tooltips)
 - [ ] Replace Travis CI with GitHub Actions
-- [ ] Expand test coverage (Card positioning, arrow styles, StatefulToolTip, cleanup)
+- [x] Expand test coverage (Card positioning, arrow styles, useHover, cleanup)
 
 ---
 
